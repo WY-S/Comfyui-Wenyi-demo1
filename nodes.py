@@ -19,6 +19,9 @@ from .utils import (
     resolve_oss_config,
 )
 
+import torch
+import torch.nn.functional as F
+
 # 尝试导入 ComfyUI 原生 VIDEO 类型（ComfyUI 0.3.30+ / 0.20+）
 try:
     from comfy_api.input_impl import VideoFromFile  # type: ignore
@@ -65,6 +68,12 @@ class HappyHorseT2V:
                 "seed": ("INT", {"default": 0, "min": 0, "max": 2147483647}),
                 "watermark": ("BOOLEAN", {"default": True, "tooltip": "是否添加 Happy Horse 水印"}),
             },
+            "optional": {
+                "model": (["happyhorse-1.0-t2v"], {
+                    "default": "happyhorse-1.0-t2v",
+                    "tooltip": "模型名称（固定值，不可修改）",
+                }),
+            },
         }
 
     RETURN_TYPES = ("VIDEO", "STRING", "STRING")
@@ -73,7 +82,8 @@ class HappyHorseT2V:
     CATEGORY = CATEGORY_NAME
     OUTPUT_NODE = True
 
-    def action(self, api_key, prompt, resolution, ratio, duration, seed, watermark):
+    def action(self, api_key, prompt, resolution, ratio, duration, seed, watermark, model="happyhorse-1.0-t2v"):
+        # model 为固定显示值，不使用用户传入
         api_key = resolve_api_key(api_key)
         if not api_key:
             raise ValueError("缺少 api_key")
@@ -143,6 +153,10 @@ class HappyHorseI2V:
                     "default": get_oss_default("endpoint"),
                     "tooltip": "OSS Endpoint，如 oss-cn-beijing.aliyuncs.com（留空使用 config.json 默认值）",
                 }),
+                "model": (["happyhorse-1.0-i2v"], {
+                    "default": "happyhorse-1.0-i2v",
+                    "tooltip": "模型名称（固定值，不可修改；OSS 不全时自动降级为 t2v）",
+                }),
             },
         }
 
@@ -153,7 +167,9 @@ class HappyHorseI2V:
     OUTPUT_NODE = True
 
     def action(self, api_key, image, prompt, resolution, duration, seed, watermark,
-               OSS_ACCESS_KEY="", OSS_SECRET_KEY="", bucket="", endpoint=""):
+               OSS_ACCESS_KEY="", OSS_SECRET_KEY="", bucket="", endpoint="",
+               model="happyhorse-1.0-i2v"):
+        # model 为固定显示值，不使用用户传入
         api_key = resolve_api_key(api_key)
         if not api_key:
             raise ValueError("缺少 api_key")
@@ -254,6 +270,10 @@ class HappyHorseR2V:
                     "default": get_oss_default("endpoint"),
                     "tooltip": "OSS Endpoint，如 oss-cn-beijing.aliyuncs.com（留空使用 config.json 默认值）",
                 }),
+                "model": (["happyhorse-1.0-r2v"], {
+                    "default": "happyhorse-1.0-r2v",
+                    "tooltip": "模型名称（固定值，不可修改；OSS 不全时自动降级为 t2v）",
+                }),
             },
         }
 
@@ -264,7 +284,9 @@ class HappyHorseR2V:
     OUTPUT_NODE = True
 
     def action(self, api_key, reference_images, prompt, resolution, ratio, duration, seed, watermark,
-               OSS_ACCESS_KEY="", OSS_SECRET_KEY="", bucket="", endpoint=""):
+               OSS_ACCESS_KEY="", OSS_SECRET_KEY="", bucket="", endpoint="",
+               model="happyhorse-1.0-r2v"):
+        # model 为固定显示值，不使用用户传入
         api_key = resolve_api_key(api_key)
         if not api_key:
             raise ValueError("缺少 api_key")
@@ -370,6 +392,10 @@ class HappyHorseVideoEdit:
                     "default": get_oss_default("endpoint"),
                     "tooltip": "OSS Endpoint，如 oss-cn-beijing.aliyuncs.com（留空使用 config.json 默认值）",
                 }),
+                "model": (["happyhorse-1.0-video-edit"], {
+                    "default": "happyhorse-1.0-video-edit",
+                    "tooltip": "模型名称（固定值，不可修改）",
+                }),
             },
         }
 
@@ -381,7 +407,9 @@ class HappyHorseVideoEdit:
 
     def action(self, api_key, video, prompt, resolution, ratio, seed, watermark,
                reference_images=None,
-               OSS_ACCESS_KEY="", OSS_SECRET_KEY="", bucket="", endpoint=""):
+               OSS_ACCESS_KEY="", OSS_SECRET_KEY="", bucket="", endpoint="",
+               model="happyhorse-1.0-video-edit"):
+        # model 为固定显示值，不使用用户传入
         api_key = resolve_api_key(api_key)
         if not api_key:
             raise ValueError("缺少 api_key")
@@ -448,6 +476,7 @@ NODE_CLASS_MAPPINGS = {
     "HappyHorse I2V": HappyHorseI2V,
     "HappyHorse R2V": HappyHorseR2V,
     "HappyHorse VideoEdit": HappyHorseVideoEdit,
+    "HappyHorse ImageBatchMulti": None,  # 稀客占位，下面定义后覆盖
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -455,4 +484,61 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "HappyHorse I2V": "HappyHorse 图生视频",
     "HappyHorse R2V": "HappyHorse 参考生视频",
     "HappyHorse VideoEdit": "HappyHorse 视频编辑",
+    "HappyHorse ImageBatchMulti": "HappyHorse 多路图像批量合并",
 }
+
+
+# ------------------------- 多路图像批量合并 -------------------------
+
+class HappyHorseImageBatchMulti:
+    """HappyHorse 多路图像批量合并（支持 1~9 张，尺寸不一致时以 image1 为准缩放）"""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image1": ("IMAGE", {"tooltip": "第 1 张图像（必填，输出尺寸以其为准）"}),
+            },
+            "optional": {
+                "image2": ("IMAGE",),
+                "image3": ("IMAGE",),
+                "image4": ("IMAGE",),
+                "image5": ("IMAGE",),
+                "image6": ("IMAGE",),
+                "image7": ("IMAGE",),
+                "image8": ("IMAGE",),
+                "image9": ("IMAGE",),
+            },
+        }
+
+    RETURN_TYPES = ("IMAGE",)
+    RETURN_NAMES = ("images",)
+    FUNCTION = "batch"
+    CATEGORY = CATEGORY_NAME
+
+    def batch(self, image1, image2=None, image3=None, image4=None,
+              image5=None, image6=None, image7=None, image8=None, image9=None):
+        images = [image1]
+        for img in (image2, image3, image4, image5, image6, image7, image8, image9):
+            if img is not None:
+                images.append(img)
+
+        # 以 image1 尺寸为准，将不同尺寸的图像 resize 对齐
+        target_h, target_w = image1.shape[1], image1.shape[2]
+        aligned = []
+        for img in images:
+            if img.shape[1] != target_h or img.shape[2] != target_w:
+                # [B, H, W, C] -> [B, C, H, W] -> interpolate -> [B, H, W, C]
+                img_bchw = img.permute(0, 3, 1, 2)
+                img_bchw = F.interpolate(img_bchw, size=(target_h, target_w),
+                                         mode="bilinear", align_corners=False)
+                img = img_bchw.permute(0, 2, 3, 1)
+            aligned.append(img)
+
+        merged = torch.cat(aligned, dim=0)
+        print(f"[HappyHorse] ImageBatchMulti: 合并 {merged.shape[0]} 张图像 ({target_h}x{target_w})")
+        return (merged,)
+
+
+# 覆盖注册（类定义位于映射之后）
+NODE_CLASS_MAPPINGS["HappyHorse ImageBatchMulti"] = HappyHorseImageBatchMulti

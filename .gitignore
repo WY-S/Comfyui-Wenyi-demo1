@@ -30,5 +30,15 @@ temp/
 # 本地敏感配置（config.json 里的 api_key / OSS 凭证请自行填写，勿提交真实值）
 # 本仓库已提供脱敏版 config.json 作为模板，默认不忽略
 
-# 临时脚本
+# 临时脚本 / 本地测试产物
 _git_init.ps1
+_start_comfyui.ps1
+_verify_nodes.py
+_verify.log
+comfyui_startup.log
+comfyui_startup.log.err
+push.log
+git_status.log
+
+# 打包产物
+*.zip
