@@ -1,100 +1,389 @@
 {
-  "last_node_id": 6,
-  "last_link_id": 5,
+  "id": "877ef6c4-1071-4f34-9999-2a20b9e747eb",
+  "revision": 0,
+  "last_node_id": 7,
+  "last_link_id": 6,
   "nodes": [
     {
-      "id": 1,
-      "type": "LoadImage",
-      "pos": [80, 80],
-      "size": [280, 300],
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {"name": "IMAGE", "type": "IMAGE", "links": [1], "slot_index": 0},
-        {"name": "MASK", "type": "MASK", "links": null, "slot_index": 1}
+      "id": 3,
+      "type": "HappyHorse ImageBatchMulti",
+      "pos": [
+        420,
+        200
       ],
-      "properties": {"Node name for S&R": "LoadImage"},
-      "widgets_values": ["example.png", "image"]
+      "size": [
+        260,
+        260
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image1",
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "localized_name": "image2",
+          "name": "image2",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 2
+        },
+        {
+          "localized_name": "image3",
+          "name": "image3",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "image4",
+          "name": "image4",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "image5",
+          "name": "image5",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "image6",
+          "name": "image6",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "image7",
+          "name": "image7",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "image8",
+          "name": "image8",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "image9",
+          "name": "image9",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "images",
+          "name": "images",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "HappyHorse ImageBatchMulti"
+      },
+      "widgets_values": []
     },
     {
       "id": 2,
       "type": "LoadImage",
-      "pos": [80, 420],
-      "size": [280, 300],
+      "pos": [
+        96.5,
+        524.5
+      ],
+      "size": [
+        280,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            2
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "slot_index": 1,
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "example.png",
+        "image"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        80,
+        80
+      ],
+      "size": [
+        280,
+        314
+      ],
       "flags": {},
       "order": 1,
       "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {"name": "IMAGE", "type": "IMAGE", "links": [2], "slot_index": 0},
-        {"name": "MASK", "type": "MASK", "links": null, "slot_index": 1}
-      ],
-      "properties": {"Node name for S&R": "LoadImage"},
-      "widgets_values": ["example.png", "image"]
-    },
-    {
-      "id": 5,
-      "type": "LoadImage",
-      "pos": [80, 760],
-      "size": [280, 300],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {"name": "IMAGE", "type": "IMAGE", "links": [4], "slot_index": 0},
-        {"name": "MASK", "type": "MASK", "links": null, "slot_index": 1}
-      ],
-      "properties": {"Node name for S&R": "LoadImage"},
-      "widgets_values": ["example.png", "image"]
-    },
-    {
-      "id": 3,
-      "type": "HappyHorse ImageBatchMulti",
-      "pos": [420, 200],
-      "size": [260, 260],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
       "inputs": [
-        {"name": "image1", "type": "IMAGE", "link": 1},
-        {"name": "image2", "type": "IMAGE", "link": 2},
-        {"name": "image3", "type": "IMAGE", "link": 4},
-        {"name": "image4", "type": "IMAGE", "link": null},
-        {"name": "image5", "type": "IMAGE", "link": null},
-        {"name": "image6", "type": "IMAGE", "link": null},
-        {"name": "image7", "type": "IMAGE", "link": null},
-        {"name": "image8", "type": "IMAGE", "link": null},
-        {"name": "image9", "type": "IMAGE", "link": null}
+        {
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
       ],
       "outputs": [
-        {"name": "images", "type": "IMAGE", "links": [3], "slot_index": 0}
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            1
+          ]
+        },
+        {
+          "localized_name": "MASK",
+          "name": "MASK",
+          "type": "MASK",
+          "slot_index": 1,
+          "links": null
+        }
       ],
-      "properties": {"Node name for S&R": "HappyHorse ImageBatchMulti"},
-      "widgets_values": []
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "钟小兰.jpg",
+        "image"
+      ]
     },
     {
       "id": 4,
       "type": "HappyHorse R2V",
-      "pos": [740, 160],
-      "size": [460, 520],
+      "pos": [
+        740,
+        160
+      ],
+      "size": [
+        460,
+        520
+      ],
       "flags": {},
-      "order": 4,
+      "order": 3,
       "mode": 0,
       "inputs": [
-        {"name": "reference_images", "type": "IMAGE", "link": 3}
+        {
+          "localized_name": "reference_images",
+          "name": "reference_images",
+          "type": "IMAGE",
+          "link": 3
+        },
+        {
+          "localized_name": "api_key",
+          "name": "api_key",
+          "type": "STRING",
+          "widget": {
+            "name": "api_key"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "resolution",
+          "name": "resolution",
+          "type": "COMBO",
+          "widget": {
+            "name": "resolution"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "ratio",
+          "name": "ratio",
+          "type": "COMBO",
+          "widget": {
+            "name": "ratio"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "duration",
+          "name": "duration",
+          "type": "INT",
+          "widget": {
+            "name": "duration"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "watermark",
+          "name": "watermark",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "watermark"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "OSS_ACCESS_KEY",
+          "name": "OSS_ACCESS_KEY",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "OSS_ACCESS_KEY"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "OSS_SECRET_KEY",
+          "name": "OSS_SECRET_KEY",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "OSS_SECRET_KEY"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "bucket",
+          "name": "bucket",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "bucket"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "endpoint",
+          "name": "endpoint",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "endpoint"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "model",
+          "name": "model",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "model"
+          },
+          "link": null
+        }
       ],
       "outputs": [
-        {"name": "video", "type": "VIDEO", "links": null, "slot_index": 0},
-        {"name": "video_url", "type": "STRING", "links": null, "slot_index": 1},
-        {"name": "video_path", "type": "STRING", "links": null, "slot_index": 2}
+        {
+          "localized_name": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "slot_index": 0,
+          "links": [
+            6
+          ]
+        },
+        {
+          "localized_name": "video_url",
+          "name": "video_url",
+          "type": "STRING",
+          "slot_index": 1,
+          "links": null
+        },
+        {
+          "localized_name": "video_path",
+          "name": "video_path",
+          "type": "STRING",
+          "slot_index": 2,
+          "links": null
+        }
       ],
-      "properties": {"Node name for S&R": "HappyHorse R2V"},
+      "properties": {
+        "Node name for S&R": "HappyHorse R2V"
+      },
       "widgets_values": [
         "",
-        "[Image 1]、[Image 2]、[Image 3] 中的主体自然出现在同一场景里，镜头缓慢推进，光影柔和，画面电影感",
+        "[Image 1]、[Image 2] 中的主体自然出现在同一场景里，镜头缓慢推进，光影柔和，画面电影感",
         "720P",
         "16:9",
         5,
@@ -103,20 +392,113 @@
         "",
         "",
         "",
-        ""
+        "",
+        "oss-cn-beijing.aliyuncs.com",
+        "happyhorse-1.0-r2v"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "SaveVideo",
+      "pos": [
+        1335.7085,
+        192.83
+      ],
+      "size": [
+        270,
+        249.875
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "link": 6
+        },
+        {
+          "localized_name": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "format",
+          "name": "format",
+          "type": "COMBO",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "codec",
+          "name": "codec",
+          "type": "COMBO",
+          "widget": {
+            "name": "codec"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "video/ComfyUI",
+        "auto",
+        "auto"
       ]
     }
   ],
   "links": [
-    [1, 1, 0, 3, 0, "IMAGE"],
-    [2, 2, 0, 3, 1, "IMAGE"],
-    [4, 5, 0, 3, 2, "IMAGE"],
-    [3, 3, 0, 4, 0, "IMAGE"]
+    [
+      1,
+      1,
+      0,
+      3,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      1,
+      "IMAGE"
+    ],
+    [
+      3,
+      3,
+      0,
+      4,
+      0,
+      "IMAGE"
+    ],
+    [
+      6,
+      4,
+      0,
+      7,
+      0,
+      "VIDEO"
+    ]
   ],
   "groups": [],
   "config": {},
   "extra": {
-    "ds": {"scale": 1, "offset": [0, 0]}
+    "ds": {
+      "scale": 0.7513148009015777,
+      "offset": [
+        209.1300000000001,
+        173.3030000000001
+      ]
+    }
   },
   "version": 0.4
 }

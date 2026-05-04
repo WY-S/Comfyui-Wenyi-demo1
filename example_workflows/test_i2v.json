@@ -1,68 +1,218 @@
 {
-  "last_node_id": 2,
-  "last_link_id": 1,
+  "id": "eaf959c3-ab2e-47e5-b6bf-c445c2bfc96e",
+  "revision": 0,
+  "last_node_id": 3,
+  "last_link_id": 2,
   "nodes": [
     {
       "id": 1,
       "type": "LoadImage",
-      "pos": [120, 220],
-      "size": [320, 320],
+      "pos": [
+        120,
+        220
+      ],
+      "size": [
+        320,
+        320
+      ],
       "flags": {},
       "order": 0,
       "mode": 0,
-      "inputs": [],
-      "outputs": [
+      "inputs": [
         {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [1],
-          "slot_index": 0
+          "localized_name": "image",
+          "name": "image",
+          "type": "COMBO",
+          "widget": {
+            "name": "image"
+          },
+          "link": null
         },
         {
+          "localized_name": "choose file to upload",
+          "name": "upload",
+          "type": "IMAGEUPLOAD",
+          "widget": {
+            "name": "upload"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "localized_name": "IMAGE",
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            1
+          ]
+        },
+        {
+          "localized_name": "MASK",
           "name": "MASK",
           "type": "MASK",
-          "links": null,
-          "slot_index": 1
+          "slot_index": 1,
+          "links": null
         }
       ],
       "properties": {
         "Node name for S&R": "LoadImage"
       },
-      "widgets_values": ["example.png", "image"]
+      "widgets_values": [
+        "example.png",
+        "image"
+      ]
     },
     {
       "id": 2,
       "type": "HappyHorse I2V",
-      "pos": [500, 180],
-      "size": [460, 460],
+      "pos": [
+        500,
+        180
+      ],
+      "size": [
+        460,
+        460
+      ],
       "flags": {},
       "order": 1,
       "mode": 0,
       "inputs": [
         {
+          "localized_name": "image",
           "name": "image",
           "type": "IMAGE",
           "link": 1
+        },
+        {
+          "localized_name": "api_key",
+          "name": "api_key",
+          "type": "STRING",
+          "widget": {
+            "name": "api_key"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "resolution",
+          "name": "resolution",
+          "type": "COMBO",
+          "widget": {
+            "name": "resolution"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "duration",
+          "name": "duration",
+          "type": "INT",
+          "widget": {
+            "name": "duration"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "watermark",
+          "name": "watermark",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "watermark"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "OSS_ACCESS_KEY",
+          "name": "OSS_ACCESS_KEY",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "OSS_ACCESS_KEY"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "OSS_SECRET_KEY",
+          "name": "OSS_SECRET_KEY",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "OSS_SECRET_KEY"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "bucket",
+          "name": "bucket",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "bucket"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "endpoint",
+          "name": "endpoint",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "endpoint"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "model",
+          "name": "model",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "model"
+          },
+          "link": null
         }
       ],
       "outputs": [
         {
+          "localized_name": "video",
           "name": "video",
           "type": "VIDEO",
-          "links": null,
-          "slot_index": 0
+          "slot_index": 0,
+          "links": [
+            2
+          ]
         },
         {
+          "localized_name": "video_url",
           "name": "video_url",
           "type": "STRING",
-          "links": null,
-          "slot_index": 1
+          "slot_index": 1,
+          "links": null
         },
         {
+          "localized_name": "video_path",
           "name": "video_path",
           "type": "STRING",
-          "links": null,
-          "slot_index": 2
+          "slot_index": 2,
+          "links": null
         }
       ],
       "properties": {
@@ -78,19 +228,96 @@
         "",
         "",
         "",
-        ""
+        "",
+        "oss-cn-beijing.aliyuncs.com",
+        "happyhorse-1.0-i2v"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "SaveVideo",
+      "pos": [
+        1147,
+        279.5
+      ],
+      "size": [
+        270,
+        368
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "link": 2
+        },
+        {
+          "localized_name": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "format",
+          "name": "format",
+          "type": "COMBO",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "codec",
+          "name": "codec",
+          "type": "COMBO",
+          "widget": {
+            "name": "codec"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "video/ComfyUI",
+        "auto",
+        "auto"
       ]
     }
   ],
   "links": [
-    [1, 1, 0, 2, 0, "IMAGE"]
+    [
+      1,
+      1,
+      0,
+      2,
+      0,
+      "IMAGE"
+    ],
+    [
+      2,
+      2,
+      0,
+      3,
+      0,
+      "VIDEO"
+    ]
   ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
       "scale": 1,
-      "offset": [0, 0]
+      "offset": [
+        0,
+        0
+      ]
     }
   },
   "version": 0.4

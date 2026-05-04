@@ -1,40 +1,168 @@
 {
-  "last_node_id": 1,
-  "last_link_id": 0,
+  "id": "89140758-10c8-4368-a906-14a0707323e8",
+  "revision": 0,
+  "last_node_id": 3,
+  "last_link_id": 2,
   "nodes": [
     {
       "id": 1,
       "type": "HappyHorse VideoEdit",
-      "pos": [200, 180],
-      "size": [500, 560],
+      "pos": [
+        301.5,
+        148
+      ],
+      "size": [
+        500,
+        560
+      ],
       "flags": {},
       "order": 0,
       "mode": 0,
       "inputs": [
         {
+          "localized_name": "reference_images",
           "name": "reference_images",
+          "shape": 7,
           "type": "IMAGE",
+          "link": null
+        },
+        {
+          "localized_name": "api_key",
+          "name": "api_key",
+          "type": "STRING",
+          "widget": {
+            "name": "api_key"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "video",
+          "name": "video",
+          "type": "STRING",
+          "widget": {
+            "name": "video"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "prompt",
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "resolution",
+          "name": "resolution",
+          "type": "COMBO",
+          "widget": {
+            "name": "resolution"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "ratio",
+          "name": "ratio",
+          "type": "COMBO",
+          "widget": {
+            "name": "ratio"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "seed",
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "watermark",
+          "name": "watermark",
+          "type": "BOOLEAN",
+          "widget": {
+            "name": "watermark"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "OSS_ACCESS_KEY",
+          "name": "OSS_ACCESS_KEY",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "OSS_ACCESS_KEY"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "OSS_SECRET_KEY",
+          "name": "OSS_SECRET_KEY",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "OSS_SECRET_KEY"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "bucket",
+          "name": "bucket",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "bucket"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "endpoint",
+          "name": "endpoint",
+          "shape": 7,
+          "type": "STRING",
+          "widget": {
+            "name": "endpoint"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "model",
+          "name": "model",
+          "shape": 7,
+          "type": "COMBO",
+          "widget": {
+            "name": "model"
+          },
           "link": null
         }
       ],
       "outputs": [
         {
+          "localized_name": "video",
           "name": "video",
           "type": "VIDEO",
-          "links": null,
-          "slot_index": 0
+          "slot_index": 0,
+          "links": [
+            2
+          ]
         },
         {
+          "localized_name": "video_url",
           "name": "video_url",
           "type": "STRING",
-          "links": null,
-          "slot_index": 1
+          "slot_index": 1,
+          "links": null
         },
         {
+          "localized_name": "video_path",
           "name": "video_path",
           "type": "STRING",
-          "links": null,
-          "slot_index": 2
+          "slot_index": 2,
+          "links": null
         }
       ],
       "properties": {
@@ -42,7 +170,7 @@
       },
       "widgets_values": [
         "",
-        "https://cdn.translate.alibaba.com/r2staticjava/1b4c7b1d-4b8f-4e3c-9c8c-8d8d8d8d8d8d.mp4",
+        "https://dangdang-test.oss-cn-beijing.aliyuncs.com/happyhorse_1777907656_629c7cf2.mp4",
         "把视频中的场景改为黄昏时分，暖色调光影，天空呈现橙红色晚霞",
         "720P",
         "16:9",
@@ -51,17 +179,88 @@
         "",
         "",
         "",
-        ""
+        "",
+        "oss-cn-beijing.aliyuncs.com",
+        "happyhorse-1.0-video-edit"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "SaveVideo",
+      "pos": [
+        864,
+        178
+      ],
+      "size": [
+        270,
+        249.875
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "localized_name": "video",
+          "name": "video",
+          "type": "VIDEO",
+          "link": 2
+        },
+        {
+          "localized_name": "filename_prefix",
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "format",
+          "name": "format",
+          "type": "COMBO",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        },
+        {
+          "localized_name": "codec",
+          "name": "codec",
+          "type": "COMBO",
+          "widget": {
+            "name": "codec"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "video/ComfyUI",
+        "auto",
+        "auto"
       ]
     }
   ],
-  "links": [],
+  "links": [
+    [
+      2,
+      1,
+      0,
+      3,
+      0,
+      "VIDEO"
+    ]
+  ],
   "groups": [],
   "config": {},
   "extra": {
     "ds": {
       "scale": 1,
-      "offset": [0, 0]
+      "offset": [
+        0,
+        0
+      ]
     }
   },
   "version": 0.4
