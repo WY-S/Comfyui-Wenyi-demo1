@@ -167,7 +167,7 @@ def _get_oss_bucket():
 
 
 def upload_pil_to_oss(image: Image.Image, object_name: str = None) -> str:
-    """把 PIL 图片上传到 OSS，返回公网 URL"""
+    """把 PIL 图片上传到 OSS，返回签名 URL（有效期 1 小时）"""
     bucket, bucket_name, endpoint = _get_oss_bucket()
 
     if object_name is None:
@@ -178,11 +178,13 @@ def upload_pil_to_oss(image: Image.Image, object_name: str = None) -> str:
     buf.seek(0)
     bucket.put_object(object_name, buf)
 
-    return f"https://{bucket_name}.{endpoint}/{object_name}"
+    # 生成签名 URL，有效期 3600 秒（1小时），确保 DashScope 能下载
+    signed_url = bucket.sign_url('GET', object_name, 3600)
+    return signed_url
 
 
 def upload_file_to_oss(file_path: str, object_name: str = None) -> str:
-    """把本地文件上传到 OSS，返回公网 URL"""
+    """把本地文件上传到 OSS，返回签名 URL（有效期 1 小时）"""
     bucket, bucket_name, endpoint = _get_oss_bucket()
 
     if object_name is None:
@@ -190,7 +192,10 @@ def upload_file_to_oss(file_path: str, object_name: str = None) -> str:
         object_name = f"happyhorse/{uuid.uuid4().hex}{ext}"
 
     bucket.put_object_from_file(object_name, file_path)
-    return f"https://{bucket_name}.{endpoint}/{object_name}"
+
+    # 生成签名 URL，有效期 3600 秒（1小时），确保 DashScope 能下载
+    signed_url = bucket.sign_url('GET', object_name, 3600)
+    return signed_url
 
 
 def resolve_video_input(video: str) -> str:
